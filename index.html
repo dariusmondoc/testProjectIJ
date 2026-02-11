@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Simple Tetris</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --panel-bg: #141726;
+      --accent: #6ee7ff;
+      --muted: #9aa3b2;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      display: grid;
+      place-items: center;
+      background: radial-gradient(circle at 20% 20%, #1d2135 0%, #090b14 55%, #06070d 100%);
+      color: #f3f7ff;
+      padding: 20px;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(200px, 240px) auto;
+      gap: 24px;
+      align-items: start;
+    }
+
+    .panel {
+      background: var(--panel-bg);
+      border: 1px solid #2b3250;
+      border-radius: 12px;
+      padding: 16px;
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
+    }
+
+    h1 {
+      margin: 0 0 12px;
+      font-size: 1.2rem;
+      letter-spacing: 0.02em;
+    }
+
+    .stat {
+      display: flex;
+      justify-content: space-between;
+      margin: 8px 0;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .stat-label {
+      color: var(--muted);
+    }
+
+    .stat-value {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .controls {
+      margin: 14px 0 0;
+      padding: 0;
+      list-style: none;
+      color: #dde7ff;
+      font-size: 0.93rem;
+    }
+
+    .controls li {
+      display: flex;
+      justify-content: space-between;
+      margin: 6px 0;
+      gap: 18px;
+    }
+
+    .key {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      color: #c6ffe5;
+      white-space: nowrap;
+    }
+
+    #status {
+      margin-top: 12px;
+      min-height: 1.2rem;
+      color: #ffd166;
+      font-size: 0.92rem;
+    }
+
+    canvas {
+      width: 300px;
+      height: 600px;
+      border-radius: 8px;
+      border: 1px solid #2b3250;
+      background: #04060d;
+      box-shadow: 0 14px 36px rgba(0, 0, 0, 0.4);
+      image-rendering: pixelated;
+    }
+
+    @media (max-width: 760px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+
+      canvas {
+        width: 260px;
+        height: 520px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="layout">
+    <section class="panel">
+      <h1>Simple Tetris</h1>
+      <div class="stat"><span class="stat-label">Score</span><span id="score" class="stat-value">0</span></div>
+      <div class="stat"><span class="stat-label">Rows solved</span><span id="lines" class="stat-value">0</span></div>
+      <ul class="controls" aria-label="Controls">
+        <li><span>Move</span> <span class="key">← / →</span></li>
+        <li><span>Rotate</span> <span class="key">↑ or W</span></li>
+        <li><span>Rotate (opposite)</span> <span class="key">Q</span></li>
+        <li><span>Soft drop</span> <span class="key">↓</span></li>
+        <li><span>Hard drop</span> <span class="key">Space</span></li>
+      </ul>
+      <div id="status" role="status" aria-live="polite"></div>
+    </section>
+
+    <canvas id="game" width="300" height="600" aria-label="Tetris game board"></canvas>
+  </main>
+
+  <script src="tetris.js"></script>
+</body>
+</html>
